@@ -1,0 +1,27 @@
+{
+  "name": "store-management",
+  "version": "1.0.0",
+  "description": "A simple product management system using Node.js, Express, MongoDB, and Mongoose.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "server": "nodemon src/server.js",
+    "lint": "eslint .",
+    "build": "react-scripts build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.21.1",
+    "mongoose": "^6.0.12",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "^5.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-plugin-react": "^7.37.1",
+    "nodemon": "^2.0.12"
+  },
+  "type": "module"
+}
