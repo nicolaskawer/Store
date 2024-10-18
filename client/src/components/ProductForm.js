@@ -5,13 +5,13 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
     productName: '',
     productSKU: '',
     productDescription: '',
-    productType: 'vegetable', // Default value
-    marketingDate: new Date().toISOString().split('T')[0], // Default to today
+    productType: 'vegetable',
+    marketingDate: new Date().toISOString().split('T')[0],
   });
 
   useEffect(() => {
     if (productToEdit) {
-      setProductData(productToEdit);
+      setProductData(productToEdit); // Set the product data for editing
     } else {
       setProductData({
         productName: '',
@@ -31,10 +31,16 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (productToEdit) {
-      editProduct({ ...productData });
+      // Do not send the productNumber in the edit
+      const { productNumber, ...updatedProductData } = productData;
+      editProduct(updatedProductData);
     } else {
-      addProduct(productData);
+      addProduct(productData); // Adding a new product
     }
+    resetForm();
+  };
+
+  const resetForm = () => {
     setProductData({
       productName: '',
       productSKU: '',
@@ -46,6 +52,9 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {productToEdit && (
+        <p>Product Number: <strong>{productData.productNumber}</strong></p>
+      )}
       <input
         type="text"
         name="productName"
