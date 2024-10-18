@@ -7,22 +7,19 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [productToEdit, setProductToEdit] = useState(null);
 
-  // Fetch products from the server when the app loads
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch('http://localhost:5008/products');
         const data = await response.json();
-        console.log("Fetched products:", data); // Log the fetched products
-        setProducts(data); // Set the products in the state
+        setProducts(data); 
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
-  }, []); // Only run this once on mount
+  }, []);
 
-  // Add product
   const addProduct = async (product) => {
     try {
       const response = await fetch('http://localhost:5008/products', {
@@ -33,13 +30,12 @@ const App = () => {
         body: JSON.stringify(product),
       });
       const newProduct = await response.json();
-      setProducts([...products, newProduct]); // Add the new product to the local state
+      setProducts([...products, newProduct]);
     } catch (error) {
       console.error("Error adding product:", error);
     }
   };
 
-  // Edit product
   const editProduct = async (product) => {
     try {
       const response = await fetch(`http://localhost:5008/products/${product._id}`, {
@@ -51,17 +47,16 @@ const App = () => {
       });
       const updatedProduct = await response.json();
       setProducts(products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p)));
-      setProductToEdit(null); // Clear form after updating
+      setProductToEdit(null);
     } catch (error) {
       console.error("Error updating product:", error);
     }
   };
 
-  // Delete product
   const deleteProduct = async (id) => {
     try {
       await fetch(`http://localhost:5008/products/${id}`, { method: 'DELETE' });
-      setProducts(products.filter((product) => product._id !== id)); // Remove from state
+      setProducts(products.filter((product) => product._id !== id));
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -70,19 +65,25 @@ const App = () => {
   return (
     <div className="app">
       <h1>Product Management</h1>
-      {/* Use ProductForm to either add or edit a product */}
-      <ProductForm 
-        addProduct={addProduct} 
-        editProduct={editProduct} 
-        productToEdit={productToEdit} 
-      />
+      <div className="layout-container">
+        {/* Left side: Product Form */}
+        <div className="form-container">
+          <ProductForm 
+            addProduct={addProduct} 
+            editProduct={editProduct} 
+            productToEdit={productToEdit} 
+          />
+        </div>
 
-      {/* ProductList to display all products */}
-      <ProductList
-        products={products}
-        editProduct={setProductToEdit}  // Pass the product to the form for editing
-        deleteProduct={deleteProduct}
-      />
+        {/* Right side: Product List */}
+        <div className="product-list-container">
+          <ProductList
+            products={products}
+            editProduct={setProductToEdit}
+            deleteProduct={deleteProduct}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -11,15 +11,9 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
 
   useEffect(() => {
     if (productToEdit) {
-      setProductData(productToEdit); // Set the product data for editing
+      setProductData(productToEdit); // Pre-fill the form if editing a product
     } else {
-      setProductData({
-        productName: '',
-        productSKU: '',
-        productDescription: '',
-        productType: 'vegetable',
-        marketingDate: new Date().toISOString().split('T')[0],
-      });
+      resetForm(); // Reset to default form state
     }
   }, [productToEdit]);
 
@@ -48,6 +42,10 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
       productType: 'vegetable',
       marketingDate: new Date().toISOString().split('T')[0],
     });
+  };
+
+  const handleCancelEdit = () => {
+    resetForm(); // Call the resetForm to return the form to its default state
   };
 
   return (
@@ -90,6 +88,11 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
         onChange={handleChange}
       />
       <button type="submit">{productToEdit ? 'Update Product' : 'Add Product'}</button>
+      {productToEdit && (
+        <button type="button" onClick={handleCancelEdit} style={{ marginLeft: '10px' }}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 };
