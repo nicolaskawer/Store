@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import './ProductForm.css';
 
-const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
+const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => {
+  const getWeekAgoDate = () => {
+    const today = new Date();
+    const weekAgo = new Date(today.setDate(today.getDate() - 7));
+    return weekAgo.toISOString().split('T')[0];
+  };
+
   const [productData, setProductData] = useState({
     productName: '',
     productSKU: '',
     productDescription: '',
     productType: 'vegetable',
-    marketingDate: new Date().toISOString().split('T')[0],
+    marketingDate: getWeekAgoDate(), // Default to one week before today
   });
 
   useEffect(() => {
     if (productToEdit) {
-      setProductData(productToEdit); // Pre-fill the form if editing a product
+      setProductData({
+        ...productToEdit,
+        marketingDate: productToEdit.marketingDate || getWeekAgoDate(), // Ensure the date is set
+      });
     } else {
       resetForm(); // Reset to default form state
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productToEdit]);
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
@@ -26,11 +36,10 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (productToEdit) {
-      // Do not send the productNumber in the edit
       const { productNumber, ...updatedProductData } = productData;
       editProduct(updatedProductData);
     } else {
-      addProduct(productData); // Adding a new product
+      addProduct(productData); // Add a new product
     }
     resetForm();
   };
@@ -41,12 +50,13 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
       productSKU: '',
       productDescription: '',
       productType: 'vegetable',
-      marketingDate: new Date().toISOString().split('T')[0],
+      marketingDate: getWeekAgoDate(), // Reset to default (one week ago)
     });
   };
 
   const handleCancelEdit = () => {
-    resetForm(); // Call the resetForm to return the form to its default state
+    resetForm(); // Reset form to default state
+    cancelEdit(); // Trigger cancelEdit in App component
   };
 
   return (
@@ -83,11 +93,12 @@ const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
         <option value="field crops">Field Crops</option>
       </select>
       <input
-        type="date"
-        name="marketingDate"
-        value={productData.marketingDate}
-        onChange={handleChange}
-      />
+  type="date"
+  name="marketingDate"
+  value={productData.marketingDate} // Ensure the date is shown
+  onChange={handleChange}
+  max={new Date().toISOString().split('T')[0]} // Restrict future dates
+/>
       <button type="submit">{productToEdit ? 'Update Product' : 'Add Product'}</button>
       {productToEdit && (
         <button type="button" onClick={handleCancelEdit} style={{ marginLeft: '10px' }}>

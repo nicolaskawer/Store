@@ -43,16 +43,19 @@ const App = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify({
+          ...product, 
+          marketingDate: product.marketingDate || new Date().toISOString().split('T')[0], // Handle undefined dates
+        }),
       });
       const updatedProduct = await response.json();
       setProducts(products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p)));
-      setProductToEdit(null);
+      setProductToEdit(null); // Clear edit mode
     } catch (error) {
       console.error("Error updating product:", error);
     }
   };
-
+  
   const deleteProduct = async (id) => {
     try {
       await fetch(`http://localhost:5008/products/${id}`, { method: 'DELETE' });
@@ -62,20 +65,22 @@ const App = () => {
     }
   };
 
+  const cancelEdit = () => {
+    setProductToEdit(null); // Clear edit mode on cancel
+  };
+
   return (
     <div className="app">
       <h1>Product Management</h1>
       <div className="layout-container">
-        {/* Left side: Product Form */}
         <div className="form-container">
           <ProductForm 
             addProduct={addProduct} 
             editProduct={editProduct} 
             productToEdit={productToEdit} 
+            cancelEdit={cancelEdit} // Pass cancel function to ProductForm
           />
         </div>
-
-        {/* Right side: Product List */}
         <div className="product-list-container">
           <ProductList
             products={products}
