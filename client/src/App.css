@@ -1,0 +1,37 @@
+.app {
+  background-image: url("./assest/background.png");
+  background-size: cover; /* Ensures the image covers the entire screen */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling of the background */
+  height: 100vh; /* Sets the height of the app to the full viewport height */
+  width: 100vw;  /* Sets the width of the app to the full viewport width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents scrolling if content overflows */
+}
+
+html, body {
+  height: 100%; /* Ensure body and html take full height */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  overflow: hidden; /* Prevents scrolling when not necessary */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* Layout for the form and product list */
+.layout-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  box-sizing: border-box;
+}

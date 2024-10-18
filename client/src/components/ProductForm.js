@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ProductForm.css';
 
 const ProductForm = ({ addProduct, productToEdit, editProduct }) => {
   const [productData, setProductData] = useState({

@@ -1,0 +1,41 @@
+/* Form container styling */
+.form-container {
+    flex: 1;
+    margin-right: 20px;
+    background-color: rgba(255, 255, 255, 0.3); /* Transparent white */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, select, textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent */
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Ensure the cancel button matches the update button size */
+.form-container button:nth-child(2) {
+    width: 100%;
+}

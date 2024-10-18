@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductForm from './components/ProductForm';
 import ProductList from './components/ProductList';
-import './components/styles.css';
+import './App.css';
 
 const App = () => {
   const [products, setProducts] = useState([]);
