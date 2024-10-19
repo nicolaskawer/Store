@@ -124,9 +124,9 @@ const App = () => {
 
   return (
     <div className="app">
-      <button onClick={handleExit} style={{ position: 'absolute', top: '20px', left: '20px' }}>
-        Exit
-      </button>
+     <button onClick={handleExit} className="exit-button">
+      Exit
+    </button>
       <h1 className="main-title">Product Management</h1>
       <h2 className="secondary-title">
         Welcome to product management here you can manage products to your store.<br /><br />

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './ProductForm.css';
-
 const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => {
   const getWeekAgoDate = () => {
     const today = new Date();
@@ -123,10 +122,10 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
       )}
       <button type="submit">{productToEdit ? 'Update Product' : 'Add Product'}</button>
       {productToEdit && (
-        <button type="button" onClick={handleCancelEdit} style={{ marginLeft: '10px' }}>
-          Cancel
-        </button>
-      )}
+    <button type="button" onClick={handleCancelEdit} className="cancel-button">
+        Cancel
+    </button>
+)}
     </form>
   );
 };

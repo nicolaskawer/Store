@@ -71,15 +71,3 @@ npm start: Starts the server.
 npm run server: Starts the server with nodemon for automatic restarts.
 npm run lint: Runs ESLint for code quality checks.
 Environment Variables
-Make sure to create a .env file in the server directory with the following variables:
-
-plaintext
-Copy code
-MONGO_URI=<your_mongodb_connection_string>
-PORT=5008
-Learn More
-You can learn more about the technologies used in this project:
-
-React Documentation
-Express Documentation
-MongoDB Documentation

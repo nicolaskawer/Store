@@ -1,5 +1,5 @@
 .app {
-  background-image: url("./assest/background.png");
+  background-image: url("./assets/background.png");
   background-size: cover; /* Ensures the image covers the entire screen */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat;
@@ -56,3 +56,12 @@ h1 {
   box-sizing: border-box;
   flex-wrap: wrap; /* Allows the container to wrap content */
 }
+.exit-button {
+  background-color: #dc3545;
+  border-color: black;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
