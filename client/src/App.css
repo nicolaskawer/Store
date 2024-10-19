@@ -60,6 +60,7 @@ h1 {
   background-color: #dc3545;
   border-color: black;
   padding: 5px 10px;
+  border: 3px solid black;
   color: white;
   cursor: pointer;
   border-radius: 3px;
