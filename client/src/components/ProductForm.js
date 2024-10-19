@@ -8,6 +8,11 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
     return weekAgo.toISOString().split('T')[0];
   };
 
+  const getCurrentDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0]; // Return current date in YYYY-MM-DD format
+  };
+
   const [productData, setProductData] = useState({
     productName: '',
     productSKU: '',
@@ -27,10 +32,22 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productToEdit]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+
+    if (name === 'marketingDate') {
+      // Ensure that the selected date is not in the future
+      const today = getCurrentDate();
+      if (value > today) {
+        alert("Distribution date cannot be in the future. Resetting to today's date.");
+        setProductData({ ...productData, marketingDate: today });
+      } else {
+        setProductData({ ...productData, [name]: value });
+      }
+    } else {
+      setProductData({ ...productData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -39,7 +56,7 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
       const { productNumber, ...updatedProductData } = productData;
       editProduct(updatedProductData);
     } else {
-      addProduct(productData); // Add a new product
+      addProduct(productData); // Adding a new product
     }
     resetForm();
   };
@@ -62,7 +79,10 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
   return (
     <form onSubmit={handleSubmit}>
       {productToEdit && (
-        <p>Product Number: <strong>{productData.productNumber}</strong></p>
+        <>
+          <p>Product Number: <strong>{productData.productNumber}</strong></p>
+          <p>Distribution Date: <strong>{new Date(productData.marketingDate).toLocaleDateString()}</strong></p>
+        </>
       )}
       <input
         type="text"
@@ -92,13 +112,15 @@ const ProductForm = ({ addProduct, productToEdit, editProduct, cancelEdit }) => 
         <option value="fruit">Fruit</option>
         <option value="field crops">Field Crops</option>
       </select>
-      <input
-  type="date"
-  name="marketingDate"
-  value={productData.marketingDate} // Ensure the date is shown
-  onChange={handleChange}
-  max={new Date().toISOString().split('T')[0]} // Restrict future dates
-/>
+      {!productToEdit && (
+        <input
+          type="date"
+          name="marketingDate"
+          value={productData.marketingDate}
+          onChange={handleChange}
+          max={getCurrentDate()} // Prevent future date selection
+        />
+      )}
       <button type="submit">{productToEdit ? 'Update Product' : 'Add Product'}</button>
       {productToEdit && (
         <button type="button" onClick={handleCancelEdit} style={{ marginLeft: '10px' }}>

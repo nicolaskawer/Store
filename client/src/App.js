@@ -8,61 +8,67 @@ const App = () => {
   const [productToEdit, setProductToEdit] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('http://localhost:5008/products');
-        const data = await response.json();
-        setProducts(data); 
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
+    const fetchProducts = () => {
+      fetch('http://localhost:5008/products')
+        .then((response) => response.json())
+        .then((data) => setProducts(data))
+        .catch((error) => {
+          console.error("Error fetching products:", error);
+          alert("Failed to load products. Please check your internet connection.");
+        });
     };
     fetchProducts();
   }, []);
 
-  const addProduct = async (product) => {
-    try {
-      const response = await fetch('http://localhost:5008/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product),
+  const addProduct = (product) => {
+    fetch('http://localhost:5008/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    })
+      .then((response) => response.json())
+      .then((newProduct) => {
+        setProducts([...products, newProduct]);
+      })
+      .catch((error) => {
+        console.error("Error adding product:", error);
+        alert("Failed to add product. Please check your internet connection.");
       });
-      const newProduct = await response.json();
-      setProducts([...products, newProduct]);
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
   };
 
-  const editProduct = async (product) => {
-    try {
-      const response = await fetch(`http://localhost:5008/products/${product._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...product, 
-          marketingDate: product.marketingDate || new Date().toISOString().split('T')[0], // Handle undefined dates
-        }),
+  const editProduct = (product) => {
+    fetch(`http://localhost:5008/products/${product._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...product, 
+        marketingDate: product.marketingDate || new Date().toISOString().split('T')[0], // Handle undefined dates
+      }),
+    })
+      .then((response) => response.json())
+      .then((updatedProduct) => {
+        setProducts(products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p)));
+        setProductToEdit(null); // Clear edit mode
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        alert("Failed to update product. Please check your internet connection.");
       });
-      const updatedProduct = await response.json();
-      setProducts(products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p)));
-      setProductToEdit(null); // Clear edit mode
-    } catch (error) {
-      console.error("Error updating product:", error);
-    }
   };
   
-  const deleteProduct = async (id) => {
-    try {
-      await fetch(`http://localhost:5008/products/${id}`, { method: 'DELETE' });
-      setProducts(products.filter((product) => product._id !== id));
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
+  const deleteProduct = (id) => {
+    fetch(`http://localhost:5008/products/${id}`, { method: 'DELETE' })
+      .then(() => {
+        setProducts(products.filter((product) => product._id !== id));
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
+        alert("Failed to delete product. Please check your internet connection.");
+      });
   };
 
   const cancelEdit = () => {
