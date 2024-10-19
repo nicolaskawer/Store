@@ -117,6 +117,12 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
+// Route to shut down the server
+app.post('/shutdown', (req, res) => {
+  res.status(200).send({ message: 'Server is shutting down...' });
+  process.exit(); // This will stop the server
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

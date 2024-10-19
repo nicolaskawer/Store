@@ -1,6 +1,7 @@
+
 /* Container for the product list with scrollability */
 .product-list-container {
-    flex: 1;
+    flex: 2;
     margin-left: 20px;
     background-color: rgba(255, 255, 255, 0.3); /* Transparent white */
     padding: 20px;
@@ -8,9 +9,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 400px; /* Set a max height for the list */
     overflow-y: auto; /* Scrollable list */
-    border: 2px solid #007bff; /* Blue border for the entire product list */
+
     scrollbar-width: thin; /* Firefox custom scrollbar */
-    scrollbar-color: #007bff #ccc; /* Custom scrollbar colors for Firefox */
+    scrollbar-color: #28a745 #ccc; /* Custom scrollbar colors for Firefox */
 }
 
 .product-list-container::-webkit-scrollbar {
@@ -22,7 +23,7 @@
 }
 
 .product-list-container::-webkit-scrollbar-thumb {
-    background-color: #007bff; /* Scrollbar color */
+    background-color: #28a745; /* Scrollbar color */
     border-radius: 10px;
     border: 3px solid #f1f1f1; /* Padding around scrollbar thumb */
 }
@@ -36,7 +37,7 @@
 .product-list-wrapper button {
     margin-bottom: 20px;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
@@ -45,7 +46,7 @@
 }
 
 .product-list-wrapper button:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
 }
 
 .product-list {
@@ -61,7 +62,7 @@
 .product-item {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #007bff; /* Blue border around each product */
+    border: 1px solid #28a745; /* green border around each product */
     border-radius: 5px; /* Optional: Add rounding to the borders */
 }
 

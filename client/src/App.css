@@ -2,30 +2,50 @@
   background-image: url("./assest/background.png");
   background-size: cover; /* Ensures the image covers the entire screen */
   background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents tiling of the background */
-  height: 100vh; /* Sets the height of the app to the full viewport height */
-  width: 100vw;  /* Sets the width of the app to the full viewport width */
+  background-repeat: no-repeat;
+  min-height: 100vh; /* Ensure the app covers full viewport height */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 20px;
   box-sizing: border-box;
-  overflow: hidden; /* Prevents scrolling if content overflows */
+}
+
+.main-title {
+  font-size: 2.5rem; /* Main title size */
+  padding: 10px; /* Padding for the frame */
+  display: inline-block; /* Center the frame */
+  margin-bottom: 10px; /* Space below the main title */
+}
+
+.secondary-title {
+  font-size: 1rem; /* Reduced font size */
+  color: black; /* Make text black */
+  font-weight: bold; /* Make text bold */
+  font-family: 'Aron800', sans-serif; /* Use Aron800 font */
+  max-width: 600px; /* Limit width for better readability */
+  margin: 0 auto; /* Center the title */
+  margin-bottom: 20px; /* Space below the secondary title */
 }
 
 html, body {
   height: 100%; /* Ensure body and html take full height */
   margin: 0; /* Remove default margin */
   padding: 0; /* Remove default padding */
-  overflow: hidden; /* Prevents scrolling when not necessary */
+  overflow-y: auto; /* Allows scrolling if content overflows */
 }
 
 h1 {
   font-size: 2em;
   margin-bottom: 20px;
 }
-
+.success-message {
+  color: green;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
 /* Layout for the form and product list */
 .layout-container {
   display: flex;
@@ -34,4 +54,5 @@ h1 {
   max-width: 1200px;
   padding: 20px;
   box-sizing: border-box;
+  flex-wrap: wrap; /* Allows the container to wrap content */
 }

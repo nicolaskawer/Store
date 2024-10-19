@@ -11,13 +11,13 @@
   padding: 10px; /* Padding for input */
   width: 100%; /* Full width */
   max-width: 400px; /* Increased max-width for better visibility */
-  border: 1px solid #007bff; /* Match the border with your product list */
+  border: 1px solid #28a745; /* Match the border with your product list */
   border-radius: 5px; /* Rounded corners */
   background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque for better readability */
   transition: border-color 0.3s; /* Smooth transition for focus effect */
 }
 
 .search-bar input:focus {
-  border-color: #0056b3; /* Darker blue on focus */
+  border-color: #28a745; /* Darker blue on focus */
   outline: none; /* Remove default outline */
 }
